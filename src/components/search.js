@@ -76,7 +76,7 @@ function Search() {
   return (
     <>
       <section className='text-gray-600 body-font'>
-        <div className='container mx-auto flex px-5 py-24 md:flex-row flex-col items-center'>
+        <div className='container mx-auto flex px-5 py-4 md:flex-row flex-col items-center'>
           <div className='lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center'>
             <h1 className='title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900'>
               Search Free high-resolution Photos
@@ -110,9 +110,9 @@ function Search() {
               </button>
             </form>
           </div>
-          <div className='lg:max-w-lg lg:w-full md:w-1/2 w-5/6 '>
+          <div className='lg:max-w-lg lg:w-full md:w-1/2 w-5/6 placeholder'>
             <img
-              className='object-cover object-center rounded'
+              className='object-cover object-center rounded placeholder'
               alt='hero'
               src='https://images.unsplash.com/photo-1613799230873-3271b630ee1b?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1178&q=80'
             />
@@ -122,7 +122,7 @@ function Search() {
       {/* search results */}
 
       <section className='text-gray-600 body-font'>
-        <div className='container px-5 py-24 mx-auto'>
+        <div className='container px-5 py-5 mx-auto'>
           <div className='flex flex-col text-center w-full mb-20'>
             <h1 className='sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900'>
               Search Results
@@ -132,7 +132,7 @@ function Search() {
               Powered by Unsplash.
             </p>
           </div>
-          <div className='flex flex-wrap -m-4'>
+          <div className='flex flex-wrap -m-4 '>
             {loading ? (
               <img src={Spinner} alt='loading' />
             ) : (
