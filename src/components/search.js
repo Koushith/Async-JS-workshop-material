@@ -1,12 +1,14 @@
 import { data } from 'autoprefixer';
 import React, { useState, useEffect } from 'react';
 import SearchSvg from '../assets/images/search.svg';
+import Spinner from '../assets/images/spinner.svg';
 
 function Search() {
   // const [search, setSearch] = useState('');
   const [query, setQuery] = useState('');
   const [photo, setPhoto] = useState([]);
   const [pics, setPics] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const API = '563492ad6f91700001000001b2e123515f774d29be49c70e4130317c';
 
@@ -51,6 +53,7 @@ function Search() {
   const handelClick = (e) => {
     // setSearch(search);
     e.preventDefault();
+    setLoading(true);
     const Searchphotos = async () => {
       const res = await fetch(
         `https://api.pexels.com/v1/search?query=${query}&per_page=50`,
@@ -64,6 +67,7 @@ function Search() {
       const { photos } = await res.json();
 
       setPics(photos);
+      setLoading(false);
     };
     Searchphotos();
     console.log('SEARCHHHH', query);
@@ -106,7 +110,7 @@ function Search() {
               </button>
             </form>
           </div>
-          <div className='lg:max-w-lg lg:w-full md:w-1/2 w-5/6'>
+          <div className='lg:max-w-lg lg:w-full md:w-1/2 w-5/6 '>
             <img
               className='object-cover object-center rounded'
               alt='hero'
@@ -129,43 +133,49 @@ function Search() {
             </p>
           </div>
           <div className='flex flex-wrap -m-4'>
-            {/* first img */}
-            {pics.length > 0 ? (
-              <>
-                {pics.map((data) => (
-                  <div className='lg:w-1/3 sm:w-1/2 p-4'>
-                    <div className='flex relative'>
-                      <img
-                        alt='gallery'
-                        className='absolute inset-0 w-full h-full object-cover object-center'
-                        src={data.src.landscape}
-                      />
-                      <div className='px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100'>
-                        <h2 className='tracking-widest text-sm title-font font-medium text-indigo-500 mb-1'>
-                          PHOTO BY
-                        </h2>
-                        <h1 className='title-font text-lg font-medium text-gray-900 mb-3'>
-                          {data.photographer}
-                        </h1>
-
-                        <h2 className='tracking-widest text-sm title-font font-medium text-indigo-500 mb-1'>
-                          PHOTOGRAPHER'S PROFILE
-                        </h2>
-                        <h1 className='title-font text-lg font-medium text-gray-900 mb-3'>
-                          {data.photographer_url}
-                        </h1>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </>
+            {loading ? (
+              <img src={Spinner} alt='loading' />
             ) : (
-              <section className='text-gray-600 body-font'>
-                <div className='container px-5 mx-auto'>
-                  <img className='mx-auto' src={SearchSvg} />
-                </div>
-              </section>
+              <>
+                {pics.length > 0 ? (
+                  <>
+                    {pics.map((data) => (
+                      <div className='lg:w-1/3 sm:w-1/2 p-4'>
+                        <div className='flex relative'>
+                          <img
+                            alt='gallery'
+                            className='absolute inset-0 w-full h-full object-cover object-center'
+                            src={data.src.landscape}
+                          />
+                          <div className='px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100 overflow-hidden '>
+                            <h2 className='tracking-widest text-sm title-font font-medium text-indigo-500 mb-1'>
+                              PHOTO BY
+                            </h2>
+                            <h1 className='title-font text-lg font-medium text-gray-900 mb-3'>
+                              {data.photographer}
+                            </h1>
+
+                            <h2 className='tracking-widest text-sm title-font font-medium text-indigo-500 mb-1'>
+                              PHOTOGRAPHER'S PROFILE
+                            </h2>
+                            <h1 className='title-font text-lg font-medium text-gray-900 mb-3'>
+                              {data.photographer_url}
+                            </h1>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  <section className='text-gray-600 body-font '>
+                    <div className='container px-5 mx-auto flex justify-center fluid'>
+                      <img className='mx-auto' src={SearchSvg} />
+                    </div>
+                  </section>
+                )}
+              </>
             )}
+            {/* first img */}
           </div>
         </div>
       </section>
